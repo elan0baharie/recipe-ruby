@@ -1,0 +1,19 @@
+<div class="well">
+  <form class="form-horizontal" action="/ingredient/<%=@ingredient.id()%>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="ingredient_name">Rename this ingredient "<%= @ingredient.name() %>"</label>
+    <input type="text" name="ingredient_name" id="ingredient_name">
+    <button class="btn btn-info" type="submit" name="button">Submit</button>
+
+  </form>
+</div>
+
+<div class="well">
+  <form class="form-horizontal" action="/ingredient/<%=@ingredient.id()%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <label for="delete">Delete this Ingredient "<%= @ingredient.name()%>" ?</label>
+    <button class="btn btn-danger" type="submit" name="button">Submit</button>
+
+  </form>
+
+</div>
