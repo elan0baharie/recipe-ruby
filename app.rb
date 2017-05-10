@@ -73,3 +73,24 @@ patch('/ingredient/:id') do
   @ingredient.update({:name => ingredient_name})
   erb(:index)
 end
+
+get('/recipe') do
+  @recipes = Recipe.all()
+  erb(:category)
+end
+
+get('/recipe/:id') do
+  @category = Category.find(params.fetch("id").to_i())
+  erb(:category_edit)
+end
+
+post('/recipe') do
+  recipe_type = params.fetch('recipe_type')
+  @new_recipe = Recipe.new({:name => recipe_type})
+
+  if @new_recipe.save()
+    erb(:index)
+  else
+    erb(:error)
+  end
+end

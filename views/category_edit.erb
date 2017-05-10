@@ -1,17 +1,16 @@
 <div class="well">
   <form class="form-horizontal" action="/category/<%= @category.id() %>" method="post">
     <input type="hidden" name="_method" value="patch">
-    <label for="cat_type">Rename this category "<%= @category.name() %>"</label>
+    <label for="cat_type">Rename this Recipe "<%= @category.name() %>"</label>
     <input type="text" name="cat_type" id="cat_type">
     <button class="btn btn-info" type="submit" name="button">Submit</button>
   </form>
-
-
 </div>
+
 <div class="well">
   <form class="form-horizontal" action="/category/<%= @category.id() %>" method="post">
     <input type="hidden" name="_method" value="delete">
-    <label for="delete">Delete this category "<%= @category.name() %>" ?</label>
+    <label for="delete">Delete this Recipe "<%= @category.name() %>" ?</label>
     <button class="btn btn-danger" type="submit" name="button">Submit</button>
   </form>
 </div>
