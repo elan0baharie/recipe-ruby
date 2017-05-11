@@ -13,6 +13,11 @@ get('/category') do
   erb(:category)
 end
 
+get('/error') do
+  @new_recipe = Category.all()
+  erb(:category)
+end
+
 get('/category/:id') do
   @category = Category.find(params.fetch("id").to_i())
   erb(:category_edit)
@@ -20,12 +25,12 @@ end
 
 post('/category') do
   cat_type = params.fetch('cat_type')
-  @new_category = Category.new({:name => cat_type})
+  @category = Category.new({:name => cat_type})
 
-  if @new_category.save()
+  if @category.save()
     erb(:index)
   else
-    erb(:error)
+    erb(:category_error)
   end
 end
 
@@ -50,11 +55,11 @@ end
 
 post('/ingredient') do
   ingredient_name = params.fetch('ingredient_name')
-  @new_ingredient = Ingredient.new({:name => ingredient_name})
-  if @new_ingredient.save()
+  @ingredient = Ingredient.new({:name => ingredient_name})
+  if @ingredient.save()
     erb(:index)
   else
-    erb(:error)
+    erb(:ingredient_error)
   end
 end
 
@@ -101,15 +106,15 @@ post('/recipe') do
   rating = params.fetch('rating')
   ingredient_ids = params.fetch('ingredient_ids', nil)
   category_ids = params.fetch('category_ids', nil)
-  @new_recipe = Recipe.new({:name => recipe_type, :prep => prep, :rating => rating})
+  @recipe = Recipe.new({:name => recipe_type, :prep => prep, :rating => rating})
   if (ingredient_ids == nil) || (category_ids == nil)
-    erb(:error)
+    erb(:recipe_error)
   end
-  @new_recipe.update({:ingredient_ids => ingredient_ids, :category_ids => category_ids})
-  if @new_recipe.save()
+  @recipe.update({:ingredient_ids => ingredient_ids, :category_ids => category_ids})
+  if @recipe.save()
     erb(:index)
   else
-    erb(:error)
+    erb(:recipe_error)
   end
 end
 
@@ -117,13 +122,16 @@ patch('/recipe/:id') do
   recipe_type = params.fetch('recipe_type')
   prep = params.fetch('prep')
   rating = params.fetch('rating')
-  ingredient_ids = params.fetch('ingredient_ids')
-  category_ids = params.fetch('category_ids')
+  ingredient_ids = params.fetch('ingredient_ids', nil)
+  category_ids = params.fetch('category_ids', nil)
   @recipe = Recipe.find(params.fetch("id").to_i())
+  if (ingredient_ids == nil) || (category_ids == nil)
+    erb(:recipe_error)
+  end
   if @recipe.update({:name => recipe_type, :prep => prep, :rating => rating, :ingredient_ids => ingredient_ids, :category_ids => category_ids})
     erb(:index)
   else
-    erb(:error)
+    erb(:recipe_error)
   end
 end
 
