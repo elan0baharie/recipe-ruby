@@ -16,9 +16,10 @@ describe(Recipe) do
 
   describe("#categories") do
     it("will return categories for a recipe with their associated ids") do
-      test_recipe = Recipe.create({:name => "Terribly important project"})
-      test_ingredient1 = Ingredient.create({:name => "Basil", :recipe_id => test_recipe.id()})
-      test_category = Category.create({:name => "Italian", :recipe_id => test_recipe.id()})
+      test_recipe = Recipe.create({:name => "Spaghetti", :prep => "cook pasta", :rating => 5})
+      test_ingredient1 = Ingredient.create({:name => "Basil"})
+      test_category = Category.create({:name => "Italian"})
+      test_recipe.categories().push(test_category)
       expect(test_recipe.categories()).to(eq([test_category]))
     end
   end

@@ -1,5 +1,5 @@
 class Recipe <ActiveRecord::Base
-  has_many :instructions
-  has_many :ingredients, through: :instructions
-  has_many :categories
+  has_and_belongs_to_many(:ingredients)
+  has_and_belongs_to_many(:categories)
+
 end
