@@ -1,5 +1,8 @@
 <% if @categories.any? %>
   <h3>All categories</h3>
+  <p>
+    Click on a link to edit the text of the category or delete it.
+  </p>
   <ul>
     <% @categories.each() do |category| %>
     <li><a href="/category/<%= category.id() %>" ><%= category.name() %></a></li>
@@ -16,3 +19,6 @@
   </form>
 
 </div>
+<p>
+  <a href="/">Home</a>
+</p>

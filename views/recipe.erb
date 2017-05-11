@@ -10,9 +10,55 @@
 <% end %>
 <div class="well">
   <form class="form-horizontal" action="/recipe" method="post">
-    <label for="cat_type">Add a recipe:</label>
-    <input type="text" id="cat_type" name="cat_type">
+    <div class="form-group">
+      <label for="recipe_type">Add a recipe:</label>
+      <input type="text" id="recipe_type" name="recipe_type">
+    </div>
+    <div class="form-group">
+      <label for="prep">Add preparation instructions</label>
+      <input type="text" id="prep" name="prep">
+    </div>
+    <div class="form-group">
+      <label for="rating">Add a rating to this recipe</label>
+      <select class="form-control" id="rating" name="rating">
+        <option>5</option>
+        <option>4</option>
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+      </select>
+    </div>
+    <% if @ingredients.any?%>
+      <div class="form-group">
+        <label for="">Pick relevant ingredients for your dish:</label>
+        <% @ingredients.each() do |ingredient|%>
+        <label class="form-check-label"><%= ingredient.name() %><input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id() %>"></label>
+        <% end%>
+      </div>
+    <% else %>
+    <div class="form-group">
+      <h3>You have not yet added any ingredients.</h3>
+    </div>
+
+    <% end %>
+
+    <% if @categories.any? %>
+    <div class="form-group">
+      <label for="">Pick any relevant categories for your recipe</label>
+      <% @categories.each() do |category| %>
+      <label class="form-check-label"><%= category.name() %> <input type="checkbox" name="category_ids[]" value="<%= category.id()%>"></label>
+      <% end %>
+    </div>
+    <% else %>
+    <div class="form-group">
+      <h3>Please add a category to your recipe</h3>
+    </div>
+
+    <% end %>
     <button type="submit" name="button">Submit</button>
   </form>
 
 </div>
+<p>
+  <a href="/">Home</a>
+</p>

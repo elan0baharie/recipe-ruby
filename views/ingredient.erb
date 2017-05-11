@@ -1,5 +1,8 @@
 <% if @ingredients.any? %>
   <h3>All Ingredients</h3>
+  <p>
+    Click on a link to edit the text of the ingerdient or delete it.
+  </p>
   <ul>
     <% @ingredients.each() do |ingredient| %>
     <li><a href="/ingredient/<%= ingredient.id() %>"><%= ingredient.name() %></a></li>
@@ -17,3 +20,6 @@
     <button type="submit" name="button">Submit</button>
   </form>
 </div>
+<p>
+  <a href="/">Home</a>
+</p>

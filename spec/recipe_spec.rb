@@ -23,4 +23,34 @@ describe(Recipe) do
       expect(test_recipe.categories()).to(eq([test_category]))
     end
   end
+
+  it("will reject the update if it does not contain the required ids") do
+    test_recipe = Recipe.create({:name => "Spaghetti", :prep => "cook pasta", :rating => 5})
+    test_ingredient1 = Ingredient.create({:name => "Basil"})
+    test_category = Category.create({:name => "Italian"})
+
+    test_ingredient2 = Ingredient.create({:name => "Tomato"})
+
+    expect(test_recipe.update({:name => "Spaghetti", :prep => "cook pasta", :rating => 5, :ingredient_ids => nil, :category_ids => nil})).to(eq(false))
+  end
+
+  it("will reject the update if it does not contain a recipe name") do
+    test_recipe = Recipe.new({:name => "Spaghetti", :prep => "cook pasta", :rating => 5})
+    test_ingredient1 = Ingredient.create({:name => "Basil"})
+    test_category = Category.create({:name => "Italian"})
+
+    test_ingredient2 = Ingredient.create({:name => "Tomato"})
+
+    expect(test_recipe.update({:name => "", :prep => "cook pasta", :rating => 5, :ingredient_ids => test_ingredient1.id(), :category_ids => test_category.id()})).to(eq(false))
+  end
+
+  it("will reject the update if it does not contain any prep details") do
+    test_recipe = Recipe.new({:name => "Spaghetti", :prep => "cook pasta", :rating => 5})
+    test_ingredient1 = Ingredient.create({:name => "Basil"})
+    test_category = Category.create({:name => "Italian"})
+
+    test_ingredient2 = Ingredient.create({:name => "Tomato"})
+
+    expect(test_recipe.update({:name => "Spaghetti", :prep => "", :rating => 5, :ingredient_ids => test_ingredient1.id(), :category_ids => test_category.id()})).to(eq(false))
+  end
 end

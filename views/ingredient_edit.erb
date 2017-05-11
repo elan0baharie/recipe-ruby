@@ -12,8 +12,11 @@
   <form class="form-horizontal" action="/ingredient/<%=@ingredient.id()%>" method="post">
     <input type="hidden" name="_method" value="delete">
     <label for="delete">Delete this Ingredient "<%= @ingredient.name()%>" ?</label>
-    <button class="btn btn-danger" type="submit" name="button">Submit</button>
+    <button class="btn btn-danger" type="submit" name="button">Delete</button>
 
   </form>
 
 </div>
+<p>
+  <a href="/">Home</a>
+</p>

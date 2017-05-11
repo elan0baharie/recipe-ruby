@@ -1,0 +1,45 @@
+<div class="well">
+  <h3>All recipes:</h3>
+  <p>Click on a recipe to edit the information and/or asscoiate ingredients and categories with your recipe.</p>
+  <ul>
+    <% @recipes.each() do |recipe| %>
+      <li><a href="<%= recipe.id() %>"><strong><%=  recipe.name() %></strong></a></li>
+      <li><strong>Rating:</strong> <%=  recipe.rating() %></li>
+      <li><strong>Preperation:</strong> </li>
+      <% if recipe.prep? %>
+      <ul>
+        <li><%= recipe.prep() %></li>
+      </ul>
+      <% end %>
+      <% if recipe.ingredients.any? %>
+      <ul>
+        <h5>Ingredients</h5>
+        <% recipe.ingredients.each() do |ingredient| %>
+          <li><%= ingredient.name() %></li>
+        <% end %>
+      </ul>
+      <% end %>
+      <% if recipe.categories.any? %>
+      <ul>
+        <h5>Categories</h5>
+        <% recipe.categories.each() do |category| %>
+          <li><%= category.name() %></li>
+        <% end %>
+      </ul>
+      <% end %>
+
+    <% end  %>
+  </ul>
+
+</div>
+<div class="well">
+  <h4>Favourite recipes ordered</h4>
+  <ul>
+    <% @recipes.order(rating: :desc).each() do |recipe| %>
+    <li><%= recipe.name() %> -- <%=  recipe.rating()%> stars</li>
+    <% end %>
+  </ul>
+</div>
+<p>
+  <a href="/">Home</a>
+</p>

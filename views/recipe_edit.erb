@@ -1,17 +1,78 @@
 <div class="well">
+  <%= @recipe.name()%>
+  <ul>
+    <li><%= @recipe.prep()%></li>
+    <li><%= @recipe.rating()%></li>
+
+  </ul>
+  <ul>
+    <% @recipe.ingredients.each() do |ingredient| %>
+    <li><%= ingredient.name()%></li>
+    <% end  %>
+  </ul>
+</div>
+
+<div class="well">
   <form class="form-horizontal" action="/recipe/<%= @recipe.id() %>" method="post">
     <input type="hidden" name="_method" value="patch">
-    <label for="recipe_type">Rename this recipe "<%= @recipe.name() %>"</label>
-    <input type="text" name="recipe_type" id="recipe_type">
+    <div class="form-group">
+      <label for="recipe_type">Rename this recipe "<%= @recipe.name() %>"</label>
+      <input type="text" name="recipe_type" id="recipe_type">
+    </div>
+    <div class="form-group">
+      <label for="prep">Add preparation instructions</label>
+      <input type="text" id="prep" name="prep">
+    </div>
+    <div class="form-group">
+      <label for="rating">Add a rating to this recipe</label>
+      <select class="form-control" id="rating" name="rating">
+        <option>5</option>
+        <option>4</option>
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+      </select>
+    </div>
+    <% if @ingredients.any? %>
+
+        <div class="form-group">
+          <label for="ingredient">Associate ingredients with your recipe:</label>
+          <br>
+          <% @ingredients.each()do |ingredient| %>
+          <label class="form-check-label"><%= ingredient.name()%><input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id()%>"></label>
+          <% end %>
+        </div>
+
+    <% else %>
+      <h3>You have not yet added any ingredients.</h3>
+    <% end %>
+
+    <% if @categories.any? %>
+
+      <div class="form-group">
+        <label for="category">Add a category to your recipe:</label>
+        <br>
+        <% @categories.each() do |category| %>
+        <label class="form-check-label"> <%= category.name() %><input type="checkbox" name="category_ids[]" value="<%= category.id()%>"></label>
+
+
+        <% end %>
+
+    <% else %>
+      <h3>You have not added a category to your recipe yet!</h3>
+    <% end %>
+      </div>
     <button class="btn btn-info" type="submit" name="button">Submit</button>
   </form>
-
-
 </div>
+
 <div class="well">
   <form class="form-horizontal" action="/recipe/<%= @recipe.id() %>" method="post">
     <input type="hidden" name="_method" value="delete">
     <label for="delete">Delete this recipe "<%= @recipe.name() %>" ?</label>
-    <button class="btn btn-danger" type="submit" name="button">Submit</button>
+    <button class="btn btn-danger" type="submit" name="button">Delete</button>
   </form>
 </div>
+<p>
+  <a href="/">Home</a>
+</p>
